@@ -1,0 +1,15 @@
+## part of Easy Rooting ToolKit by DooMLoRD
+export PATH=/data/local/tmp:$PATH
+export FREESPACE=`busybox df | busybox grep '/system' | busybox awk '{print $4}'`
+
+echo "--- Free space on /system : $FREESPACE bytes"
+
+if busybox test $FREESPACE -gt 6000
+then
+	echo "--- no cleanup required"
+	exit;
+else
+	echo "--- NOT enough free space on /system!!!"
+	echo "--- making free space by removing Google Maps"
+	busybox rm -f /system/app/Maps.apk
+fi

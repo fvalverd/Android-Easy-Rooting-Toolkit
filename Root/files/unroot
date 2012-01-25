@@ -1,0 +1,49 @@
+echo --- Starting unrooting script on DEVICE
+echo --------------------------------------------------------------------------
+echo ---             DooMLoRD Unrooting script v1.0
+echo ---              part of Easy rooting toolkit
+echo --- based heavily on FlashTool scripts maintained by Bin4ry and Androxyde
+echo --------------------------------------------------------------------------
+echo --- correcting path
+export PATH=/data/local/tmp:$PATH
+echo --- correcting busybox permissions
+chmod 755 /data/local/tmp/busybox
+echo --- cleaning busybox in /system
+echo --- removing busybox symlinks from /system/bin
+for i in `busybox ls -l /system/bin|busybox grep busybox|busybox awk '{print $6}'`
+do
+   if busybox test -f /system/bin/$i
+   then
+      rm /system/bin/$i
+   fi
+done
+echo --- removing busybox symlinks from /system/xbin
+for i in `busybox ls -l /system/xbin|busybox grep busybox|busybox awk '{print $6}'`
+do
+   if busybox test -f /system/xbin/$i
+   then
+      rm /system/xbin/$i
+   fi
+done
+echo --- removing busybox from /system/bin
+if busybox test -f /system/bin/busybox
+then
+   rm /system/bin/busybox
+fi
+echo --- removing busybox from /system/xbin
+if busybox test -f /system/xbin/busybox
+then
+   rm /system/xbin/busybox
+fi
+echo --- busybox cleaned
+echo --- removing SU files
+echo --- removing su from /system/bin
+rm /system/bin/su
+echo --- removing su from /system/xbin
+rm /system/xbin/su
+echo --- removing Superuser app
+rm /system/app/Superuser.apk
+echo --- removing Superuser app data
+rm -r /data/data/com.noshufou.android.su
+echo --- SU cleaned
+echo --- COMPLETED unrooting script on DEVICE
